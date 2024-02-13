@@ -196,7 +196,7 @@ function drawText() {
         if (window.innerWidth < 600) {
             drawTextWithLineBreaks(["және мен осы махаббатты сенімен бөлісу үшін ", "дүниедегі барлық уақытымды өткізуді қалаймын"], canvas.width / 2, (canvas.height/2 + 60), fontSize, lineHeight);
         } else {
-            context.fillText("және мен осы махаббатты сенімен бөлісу үшін дүниедегі барлық уақытым  ды өткізуді қалаймын", canvas.width/2, (canvas.height/2 + 50));
+            context.fillText("және мен осы махаббатты сенімен бөлісу үшін дүниедегі барлық уақытымды өткізуді қалаймын", canvas.width/2, (canvas.height/2 + 50));
         }
 
         secondOpacity = secondOpacity + 0.01;
