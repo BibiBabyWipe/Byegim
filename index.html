@@ -12,5 +12,11 @@
     <canvas id="starfield"></canvas>
     <button id="valentinesButton">Made with ❤</button>
     <script src="script.js"></script>
+    <script>
+      document.addEventListener('click', function() {
+        var audio = new Audio(href="public/images/music.mp3");
+        audio.play();
+        document.removeEventListener('click', arguments.callee);
+      }); </script>
   </body>
-</html>
+</html> 
