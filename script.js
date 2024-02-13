@@ -113,16 +113,23 @@ function drawText() {
         opacity = 0;
     }
     if(frameNumber > 1000 && frameNumber < 1250){
-        context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
-        context.fillText("тірі болғаным және осы өмірді", " сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
-        opacity = opacity + 0.01;
-    }
+    context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
+
+    if (window.innerWidth < 600) {
+        drawTextWithLineBreaks(["тірі болғаным және осы өмірді", " сенімен бірге өткізетінім"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+    } else {
+        context.fillText("тірі болғаным және осы өмірді сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
+    } }
+
     if(frameNumber >= 1250 && frameNumber < 1500){
         context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
-        context.fillText("тірі болғаным және осы өмірді сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
-        opacity = opacity - 0.01;
-    }
 
+        if (window.innerWidth < 600) {
+            drawTextWithLineBreaks(["тірі болғаным және осы өмірді", " сенімен бірге өткізетінім"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+        } else {
+            context.fillText("тірі болғаным және осы өмірді сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
+        } }
+    
     if(frameNumber == 1500){
         opacity = 0;
     }
