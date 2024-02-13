@@ -1,8 +1,14 @@
+@font-face {
+    font-family: 'Kurale';
+    src: url('./images/kurale-regular.otf') format('opentype');
+  } 
+
 html, body {
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden;
     cursor: url('./images/pointer.png'), auto;
+    font-family: 'Kurale', cursive, sans-serif;
 }
 
 canvas {
@@ -20,7 +26,6 @@ canvas {
     cursor: pointer;
     height: 50px;
     font-size: 16px;
-    font-family: url('./images/kurale-regular.otf'), cursive, sans-serif;
     border-radius: 10px;
     top: calc(50% + 150px); /* Adjust based on canvas height and text position */
     left: 50%;
