@@ -72,13 +72,13 @@ function drawText() {
 
     if(frameNumber < 250){
         context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
-        context.fillText("Күнделікті мен қаншалықты бақытты ", " екеніме сене алмаймын", canvas.width/2, canvas.height/2);
+        context.fillText("Күнделікті мен қаншалықты бақытты екеніме сене алмаймын", canvas.width/2, canvas.height/2);
         opacity = opacity + 0.01;
     }
     //fades out the text by decreasing the opacity
     if(frameNumber >= 250 && frameNumber < 500){
         context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
-        context.fillText("Күнделікті мен қаншалықты бақытты ", " екеніме сене алмаймын", canvas.width/2, canvas.height/2);
+        context.fillText("Күнделікті мен қаншалықты бақытты екеніме сене алмаймын", canvas.width/2, canvas.height/2);
         opacity = opacity - 0.01;
     }
 
@@ -92,7 +92,7 @@ function drawText() {
         if (window.innerWidth < 600) {           //shortens long sentence for mobile screens
             drawTextWithLineBreaks(["сансыз жұлдыздар арасында,", " миллиардтаған жылдар бойында"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
         } else {
-            context.fillText("сансыз жұлдыздар арасында,", " миллиардтаған жылдар бойында", canvas.width/2, canvas.height/2);
+            context.fillText("сансыз жұлдыздар арасында, миллиардтаған жылдар бойында", canvas.width/2, canvas.height/2);
         }
 
         opacity = opacity + 0.01;
@@ -103,7 +103,7 @@ function drawText() {
         if (window.innerWidth < 600) {
             drawTextWithLineBreaks(["сансыз жұлдыздар арасында,", " миллиардтаған жылдар бойында"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
         } else {
-            context.fillText("сансыз жұлдыздар арасында,", " миллиардтаған жылдар бойында", canvas.width/2, canvas.height/2);
+            context.fillText("сансыз жұлдыздар арасында, миллиардтаған жылдар бойында", canvas.width/2, canvas.height/2);
         }
 
         opacity = opacity - 0.01;
@@ -114,12 +114,12 @@ function drawText() {
     }
     if(frameNumber > 1000 && frameNumber < 1250){
         context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
-        context.fillText("тірі болғаным және осы өмірді", " сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
+        context.fillText("тірі болғаным және осы өмірді сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
         opacity = opacity + 0.01;
     }
     if(frameNumber >= 1250 && frameNumber < 1500){
         context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
-        context.fillText("тірі болғаным және осы өмірді", " сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
+        context.fillText("тірі болғаным және осы өмірді сенімен бірге өткізетінім", canvas.width/2, canvas.height/2);
         opacity = opacity - 0.01;
     }
 
@@ -146,7 +146,7 @@ function drawText() {
         if (window.innerWidth < 600) {
             drawTextWithLineBreaks(["және мен сенімен бірге өмір сүріп жатқаныма,", " тіпті сені танитыныма өте қуаныштымын"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
         } else {
-            context.fillText("және мен сенімен бірге өмір сүріп жатқаныма,", " тіпті сені танитыныма өте қуаныштымын", canvas.width/2, canvas.height/2);
+            context.fillText("және мен сенімен бірге өмір сүріп жатқаныма, тіпті сені танитыныма өте қуаныштымын", canvas.width/2, canvas.height/2);
         }
 
         opacity = opacity + 0.01;
@@ -157,7 +157,7 @@ function drawText() {
         if (window.innerWidth < 600) {
             drawTextWithLineBreaks(["және мен сенімен бірге өмір сүріп жатқаныма,", " тіпті сені танитыныма өте қуаныштымын"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
         } else {
-            context.fillText("және мен сенімен бірге өмір сүріп жатқаныма,", " тіпті сені танитыныма өте қуаныштымын", canvas.width/2, canvas.height/2);
+            context.fillText("және мен сенімен бірге өмір сүріп жатқаныма, тіпті сені танитыныма өте қуаныштымын", canvas.width/2, canvas.height/2);
         }
         
         opacity = opacity - 0.01;
@@ -170,9 +170,9 @@ function drawText() {
         context.fillStyle = `rgba(45, 45, 255, ${opacity})`;
 
         if (window.innerWidth < 600) {
-            drawTextWithLineBreaks(["Мен сені қатты жақсы көремін Бегім-ім,", " галактикадағы барлық жұлдыздардан,", " ғаламдағы барлық атомдардан да артық"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+            drawTextWithLineBreaks(["Мен сені қатты жақсы көремін Бегім-ім,", " галактикадағы барлық жұлдыздардан да артық"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
         } else {
-            context.fillText("Мен сені қатты жақсы көремін Бегім-ім,", " галактикадағы барлық жұлдыздардан,", " ғаламдағы барлық атомдардан да артық", canvas.width/2, canvas.height/2);
+            context.fillText("Мен сені қатты жақсы көремін Бегім-ім, галактикадағы барлық жұлдыздардан да артық", canvas.width/2, canvas.height/2);
         }
 
         opacity = opacity + 0.01;
@@ -185,7 +185,7 @@ function drawText() {
         if (window.innerWidth < 600) {
             drawTextWithLineBreaks(["және мен осы махаббатты сенімен бөлісу үшін ", "дүниедегі барлық уақытымды өткізуді қалаймын"], canvas.width / 2, (canvas.height/2 + 60), fontSize, lineHeight);
         } else {
-            context.fillText("және мен осы махаббатты сенімен бөлісу үшін ", "дүниедегі барлық уақытымды өткізуді қалаймын", canvas.width/2, (canvas.height/2 + 50));
+            context.fillText("және мен осы махаббатты сенімен бөлісу үшін дүниедегі барлық уақытымды өткізуді қалаймын", canvas.width/2, (canvas.height/2 + 50));
         }
 
         secondOpacity = secondOpacity + 0.01;
