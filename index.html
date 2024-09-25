@@ -263,12 +263,15 @@
         }
 
         function getStars(rating) {
-            return Array(5).fill('☆').map((star, index) => 
-                `<span class="star" style="animation-delay: ${index * 0.1}s">
-                    ${index < rating ? '★' : '☆'}
-                </span>`
-            ).join('');
-        }
+    const fullStars = Math.floor(rating); // Get the whole number part
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0; // Determine if there's a half star
+    const emptyStars = 5 - fullStars - halfStar; // Calculate remaining empty stars
+
+    return (
+        Array(fullStars).fill('★').join('') + // Full stars
+        (halfStar ? '½' : '') + // Half star if applicable
+        Array(emptyStars).fill('☆').join('') // Empty stars
+    );
 
         async function addReview() {
             const title = document.getElementById('review-title').value;
