@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wife's Cool Movie Reviews</title>
+    <title>Byegim's Movie Reviews</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1995/1995560.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -42,10 +43,15 @@
         }
 
         .review {
-            background-color: var(--card-background);
-            border-radius: 20px;
-            border: 2px solid var(--accent-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 300px; /* Set a maximum width for review cards */
+            margin: 10px; /* Center reviews */
+            display: inline-block; /* Allow reviews to be inline */
+            vertical-align: top; /* Align reviews to the top */
+            text-align: left; /* Align text to the left for better readability */
+            border: 1px solid var(--accent-color); /* Add a border for definition */
+            border-radius: 10px; /* Rounded corners for the review card */
+            padding: 15px; /* Add padding for spacing */
+            background-color: var(--card-background); /* Background color */
         }
 
         .review:hover {
@@ -73,14 +79,16 @@
         }
 
         .review img {
-            width: 200px; /* Set a maximum width for movie posters */
+            width: 100%; /* Make the image responsive */
             height: auto; /* Maintain aspect ratio */
+            border-radius: 5px; /* Rounded corners for the image */
+            margin-bottom: 10px; /* Space below the image */
         }
 
         .movie-info {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #666;
+            margin-top: 10px; /* Adjust margin for better spacing */
+            font-size: 0.9em; /* Slightly smaller font size */
+            color: #666; /* Text color */
         }
 
         /* Additional styles omitted for brevity */
@@ -89,18 +97,6 @@
             max-width: 800px; /* Adjusted width for better display */
             margin: 0 auto;
             padding: 20px;
-        }
-
-        .review {
-            max-width: 300px; /* Set a maximum width for review cards */
-            margin: 10px; /* Center reviews */
-            display: inline-block; /* Allow reviews to be inline */
-            vertical-align: top; /* Align reviews to the top */
-        }
-
-        .review img {
-            width: 100px; /* Set a smaller width for movie posters */
-            height: auto; /* Maintain aspect ratio */
         }
 
         .cast img {
@@ -129,6 +125,7 @@
             border-radius: 5px; /* Rounded corners */
             border: 1px solid #ccc; /* Border style */
         }
+
     </style>
 </head>
 <body>
@@ -226,7 +223,7 @@
             }
         }
 
-        async function displayReviews() {
+        async function displayReviews(sortBy = 'rating') {
             const reviewsContainer = document.getElementById('reviews');
             reviewsContainer.innerHTML = ''; // Clear existing reviews
             const querySnapshot = await getDocs(collection(db, "reviews"));
@@ -234,8 +231,27 @@
                 console.log('No reviews found in Firestore.'); // Log if no reviews found
                 return; // Exit if there are no reviews
             }
+
+            // Collect reviews into an array
+            const reviews = [];
             querySnapshot.forEach((doc) => {
-                const review = doc.data();
+                reviews.push(doc.data());
+            });
+
+            // Sort reviews based on the selected criteria
+            reviews.sort((a, b) => {
+                if (sortBy === 'rating') {
+                    return b.rating - a.rating; // Sort by rating descending
+                } else if (sortBy === 'length') {
+                    return b.length - a.length; // Sort by length descending
+                } else if (sortBy === 'date') {
+                    return new Date(b.date) - new Date(a.date); // Sort by date descending
+                }
+                return 0; // Default case
+            });
+
+            // Display sorted reviews
+            reviews.forEach((review) => {
                 const reviewElement = document.createElement('div');
                 reviewElement.className = 'review';
                 reviewElement.innerHTML = `
@@ -253,25 +269,33 @@
                         <p><strong>Director:</strong> ${review.director || 'N/A'}</p>
                         <p><strong>Overview:</strong> ${review.overview}</p>
                     </div>
-                    <div class="personal-thoughts" style="margin-top: 15px; padding: 10px; border: 1px solid #d0bdf4; border-radius: 5px; background-color: #f9f9f9;">
-                        <strong>Your Personal Thoughts:</strong>
-                        <p>${review.personalThoughts || 'No personal thoughts provided.'}</p>
+                    <div class="personal-thoughts-container">
+                        <button class="toggle-personal-thoughts">Toggle Personal Thoughts</button>
+                        <div class="personal-thoughts" style="display: none; margin-top: 15px; padding: 10px; border: 1px solid #d0bdf4; border-radius: 5px; background-color: #f9f9f9;">
+                            <strong>Your Personal Thoughts:</strong>
+                            <p>${review.personalThoughts || 'No personal thoughts provided.'}</p>
+                        </div>
                     </div>
                 `;
                 reviewsContainer.appendChild(reviewElement);
             });
+
+            addToggleListeners(); // Add toggle listeners after displaying reviews
         }
 
         function getStars(rating) {
-    const fullStars = Math.floor(rating); // Get the whole number part
-    const halfStar = rating % 1 >= 0.5 ? 1 : 0; // Determine if there's a half star
-    const emptyStars = 5 - fullStars - halfStar; // Calculate remaining empty stars
+            const fullStars = Math.floor(rating); // Get the whole number part
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0; // Determine if there's a half star
+            const quarterStar = (rating % 1 >= 0.25) ? 1 : 0; // Determine if there's a quarter star
+            const emptyStars = 5 - fullStars - halfStar - quarterStar; // Calculate remaining empty stars
 
-    return (
-        Array(fullStars).fill('★').join('') + // Full stars
-        (halfStar ? '½' : '') + // Half star if applicable
-        Array(emptyStars).fill('☆').join('') // Empty stars
-    );
+            return (
+                Array(fullStars).fill('★').join('') + // Full stars
+                (halfStar ? '½' : '') + // Half star if applicable
+                (quarterStar && !halfStar ? '¼' : '') + // Quarter star if applicable
+                Array(emptyStars).fill('☆').join('') // Empty stars
+            );
+        }
 
         async function addReview() {
             const title = document.getElementById('review-title').value;
@@ -350,6 +374,23 @@
             form.style.display = form.style.display === 'none' ? 'block' : 'none'; // Toggle visibility
             setTodayDate(); // Set today's date when the form is shown
         });
+
+        document.getElementById('sort-rating').addEventListener('click', () => displayReviews('rating'));
+        document.getElementById('sort-length').addEventListener('click', () => displayReviews('length'));
+        document.getElementById('sort-date').addEventListener('click', () => displayReviews('date'));
+
+        // Load existing reviews on page load
+        displayReviews(); // Default sort by rating
+
+        function addToggleListeners() {
+            const toggleButtons = document.querySelectorAll('.toggle-personal-thoughts');
+            toggleButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const personalThoughtsDiv = button.nextElementSibling; // Get the next sibling (the personal thoughts div)
+                    personalThoughtsDiv.style.display = personalThoughtsDiv.style.display === 'none' ? 'block' : 'none'; // Toggle display
+                });
+            });
+        }
     </script>
 </body>
 </html>
