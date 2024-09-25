@@ -133,7 +133,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>My Wife's Cool Movie Reviews</h1>
+        <h1>Byegim's Movie Reviews</h1>
         
         <div id="poster-carousel"></div>
         
@@ -186,7 +186,7 @@
         const db = getFirestore(app);
 
         async function fetchMovieInfo(title) {
-            const TMDB_API_KEY = '12082b6a4d012c96fba4c4af9565f9d3'; // Your actual TMDB API key
+            const TMDB_API_KEY = '12082b6a4d012c96fba4c4af9565f9d3';
             try {
                 const searchResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}`);
                 if (!searchResponse.ok) {
@@ -280,8 +280,7 @@
             const personalThoughts = document.getElementById('personal-thoughts').value;
             const password = document.getElementById('review-password').value;
 
-            // Hardcoded password (for demonstration purposes)
-            const correctPassword = 'WeLoveZere'; // Change this to your desired password
+            const correctPassword = 'WeLoveZere'; 
 
             // Check if the entered password is correct
             if (password !== correctPassword) {
