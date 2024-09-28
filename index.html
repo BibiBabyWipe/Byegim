@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byegim's Movie Reviews</title>
+    <title>Biegimnin Kino Sholulary</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1995/1995560.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
@@ -87,7 +87,7 @@
         .movie-info {
             margin-top: 10px;
             font-size: 0.9em;
-            color: #666;
+            color: #666; /* Gray color for review texts */
         }
 
         .container {
@@ -121,38 +121,42 @@
             border: 1px solid #ccc;
         }
 
+        .personal-thoughts {
+            color: black; /* Black color for personal thoughts */
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Byegim's Movie Reviews</h1>
+        <h1>Biegimnin Kino Sholulary</h1>
         
         <div id="poster-carousel"></div>
         
         <div id="sort-options">
-            <button id="sort-rating"><i class="fas fa-star"></i> Sort by Rating</button>
-            <button id="sort-date"><i class="fas fa-calendar-alt"></i> Sort by Date</button>
-            <button id="sort-length"><i class="fas fa-clock"></i> Sort by Movie Length</button>
+            <button id="sort-rating"><i class="fas fa-star"></i> Bagalau boyynsha suryptau</button>
+            <button id="sort-date"><i class="fas fa-calendar-alt"></i> Kuni boyynsha suryptau</button>
+            <button id="sort-length"><i class="fas fa-clock"></i> Uzyndygy boyynsha suryptau</button>
         </div>
         
         <div id="reviews"></div>
 
-        <button id="show-add-review"><i class="fas fa-plus-circle"></i> Add Review</button>
+        <button id="show-add-review"><i class="fas fa-plus-circle"></i> Sholu Qosu</button>
 
         <div id="add-review-form">
-            <input type="text" id="review-title" placeholder="Movie Title">
-            <button id="fetch-movie-details">Fetch Movie Details</button>
+            <input type="text" id="review-title" placeholder="Filmniñ atawı">
+            <button id="fetch-movie-details">Filmnıñ mälimetterin alu</button>
             <input type="text" id="review-poster" placeholder="Poster URL" readonly>
-            <input type="number" id="review-length" placeholder="Movie Length (minutes)" readonly>
-            <input type="text" id="review-director" placeholder="Director" readonly>
+            <input type="number" id="review-length" placeholder="Filmnıñ uzyndyǵı (minut)" readonly>
+            <input type="text" id="review-director" placeholder="Rezhisser" readonly>
             <div class="cast"></div>
-            <textarea id="review-content" placeholder="Short Summary (Auto-filled)" readonly></textarea>
+            <textarea id="review-content" placeholder="Sholu (Avtomatik toltıru)" readonly></textarea>
             <input type="date" id="review-date">
-            <input type="number" id="review-rating" min="1" max="5" placeholder="Rating (1-5)">
-            <textarea id="personal-thoughts" placeholder="Your Personal Thoughts"></textarea>
-            <input type="password" id="review-password" placeholder="Enter Password" required>
+            <input type="number" id="review-rating" min="1" max="5" placeholder="Bagalau (1-5)">
+            <textarea id="personal-thoughts" placeholder="Menıñ Jeke Oylarym"></textarea>
+            <input type="password" id="review-password" placeholder="Parol' kirgizіnіz" required>
             
-            <button id="submit-review">Submit Review</button>
+            <button id="submit-review">Sholu Jiberu</button>
         </div>
     </div>
 
@@ -215,11 +219,13 @@
         }
 
         async function displayReviews(sortBy = 'rating') {
+            console.log('displayReviews called');
             const reviewsContainer = document.getElementById('reviews');
             reviewsContainer.innerHTML = '';
+
             const querySnapshot = await getDocs(collection(db, "reviews"));
             if (querySnapshot.empty) {
-                console.log('No reviews found in Firestore.');
+                console.log('Filmler tabylmadı.');
                 return;
             }
 
@@ -243,44 +249,37 @@
                 const reviewElement = document.createElement('div');
                 reviewElement.className = 'review';
                 reviewElement.innerHTML = `
-                    <img src="${review.poster}" alt="${review.title}">
+                    <img src="${review.poster}" alt="${review.title}" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px;">
                     <h3>${review.title} (${review.year})</h3>
-                    <p>Rating: ${getStars(review.rating)}</p>
-                    <p>Date: ${review.date}</p>
-                    <p>Length: ${review.length} minutes</p>
+                    <p>Bagalau: ${getStars(review.rating)}</p>
+                    <p>Kün: ${review.date}</p>
+                    <p>Uzyndyq: ${review.length} minut</p>
                     <div class="movie-info">
-                        <p><strong>Genre:</strong> ${review.genre}</p>
-                        <p><strong>Cast:</strong></p>
+                        <p><strong>Zhanr:</strong> ${review.genre}</p>
+                        <p><strong>Aktorlar:</strong></p>
                         <div class="cast">
-                            ${Array.isArray(review.cast) ? review.cast.map(actor => actor.profile_path ? `<img src="${actor.profile_path}" alt="${actor.name}" title="${actor.name}">` : '').join('') : 'N/A'}
+                            ${Array.isArray(review.cast) ? review.cast.slice(0, 3).map(actor => actor.profile_path ? `<img src="${actor.profile_path}" alt="${actor.name}" title="${actor.name}" style="width: 50px; height: auto; border-radius: 50%;">` : actor.name).join(', ') : 'N/A'}
                         </div>
-                        <p><strong>Director:</strong> ${review.director || 'N/A'}</p>
-                        <p><strong>Overview:</strong> ${review.overview}</p>
+                        <p><strong>Rezhisser:</strong> ${review.director || 'N/A'}</p>
+                        <p><strong>Sholu:</strong> ${review.overview}</p>
                     </div>
-                    <div class="personal-thoughts-container">
-                        <button class="toggle-personal-thoughts">Toggle Personal Thoughts</button>
-                        <div class="personal-thoughts" style="display: none; margin-top: 15px; padding: 10px; border: 1px solid #d0bdf4; border-radius: 5px; background-color: #f9f9f9;">
-                            <strong>Your Personal Thoughts:</strong>
-                            <p>${review.personalThoughts || 'No personal thoughts provided.'}</p>
-                        </div>
+                    <div class="personal-thoughts">
+                        <strong>Menıñ Jeke Oylarym:</strong>
+                        <p>${review.personalThoughts || 'Jeke oylardı berilmegen.'}</p>
                     </div>
                 `;
                 reviewsContainer.appendChild(reviewElement);
             });
-
-            addToggleListeners();
         }
 
         function getStars(rating) {
             const fullStars = Math.floor(rating);
             const halfStar = rating % 1 >= 0.5 ? 1 : 0;
-            const quarterStar = (rating % 1 >= 0.25) ? 1 : 0;
-            const emptyStars = 5 - fullStars - halfStar - quarterStar;
+            const emptyStars = 5 - fullStars - halfStar;
 
             return (
                 Array(fullStars).fill('★').join('') +
                 (halfStar ? '½' : '') +
-                (quarterStar && !halfStar ? '¼' : '') +
                 Array(emptyStars).fill('☆').join('')
             );
         }
@@ -298,13 +297,13 @@
             const correctPassword = 'WeLoveZere'; 
 
             if (password !== correctPassword) {
-                alert('Incorrect password. You cannot submit a review.');
+                alert('Parol' dūrys emes. Siz sholu jiberuge bolmaydı.');
                 return;
             }
 
             const movieInfo = await fetchMovieInfo(title);
             if (!movieInfo) {
-                alert('Movie not found. Please check the title.');
+                alert('Film tabylmadı. Atawı tekseriñiz.');
                 return;
             }
 
@@ -324,10 +323,10 @@
 
             try {
                 await addDoc(collection(db, "reviews"), reviewData);
-                alert('Review added successfully!');
+                alert('Sholu usınyldy!');
                 displayReviews();
             } catch (error) {
-                console.error('Error adding review:', error);
+                console.error('Sholu qosuda qate:', error);
             }
         }
 
@@ -348,7 +347,7 @@
                     document.getElementById('review-length').value = movieInfo.length || '';
                     document.getElementById('review-content').value = movieInfo.overview;
                 } else {
-                    alert('Movie not found. Please check the title.');
+                    alert('Film tabylmadı. Atawı tekseriñiz.');
                 }
             });
 
@@ -365,16 +364,6 @@
         document.getElementById('sort-rating').addEventListener('click', () => displayReviews('rating'));
         document.getElementById('sort-length').addEventListener('click', () => displayReviews('length'));
         document.getElementById('sort-date').addEventListener('click', () => displayReviews('date'));
-
-        function addToggleListeners() {
-            const toggleButtons = document.querySelectorAll('.toggle-personal-thoughts');
-            toggleButtons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    const personalThoughtsDiv = button.nextElementSibling;
-                    personalThoughtsDiv.style.display = personalThoughtsDiv.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        }
     </script>
 </body>
 </html>
