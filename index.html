@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byegimnin Kino Sholulary</title>
+    <title>Byegimnin Kïno Bağalauı</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1995/1995560.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
@@ -124,24 +124,23 @@
         .personal-thoughts {
             color: black; /* Black color for personal thoughts */
         }
-
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Byegimnin Kino Sholulary</h1>
+        <h1>Byegimnin Kïno Bağalauı</h1>
         
         <div id="poster-carousel"></div>
         
         <div id="sort-options">
-            <button id="sort-rating"><i class="fas fa-star"></i> Bagalau boyynsha suryptau</button>
-            <button id="sort-date"><i class="fas fa-calendar-alt"></i> Kuni boyynsha suryptau</button>
-            <button id="sort-length"><i class="fas fa-clock"></i> Uzyndygy boyynsha suryptau</button>
+            <button id="sort-rating"><i class="fas fa-star"></i> Bağalau boyınşa surıptau</button>
+            <button id="sort-date"><i class="fas fa-calendar-alt"></i> Küni boyınşa surıptau</button>
+            <button id="sort-length"><i class="fas fa-clock"></i> Uzındığı boyınşa surıptau</button>
         </div>
         
         <div id="reviews"></div>
 
-        <button id="show-add-review"><i class="fas fa-plus-circle"></i> Sholu Qosu</button>
+        <button id="show-add-review"><i class="fas fa-plus-circle"></i> Bağalau Qosu</button>
 
         <div id="add-review-form">
             <input type="text" id="review-title" placeholder="Filmniñ atawı">
@@ -153,10 +152,10 @@
             <textarea id="review-content" placeholder="Sholu (Avtomatik toltıru)" readonly></textarea>
             <input type="date" id="review-date">
             <input type="number" id="review-rating" min="1" max="5" placeholder="Bagalau (1-5)">
-            <textarea id="personal-thoughts" placeholder="Menıñ Jeke Oylarym"></textarea>
+            <textarea id="personal-thoughts" placeholder="Menıñ oylarım"></textarea>
             <input type="password" id="review-password" placeholder="Parol' kirgizіnіz" required>
             
-            <button id="submit-review">Sholu Jiberu</button>
+            <button id="submit-review">Bağalau Jiberu</button>
         </div>
     </div>
 
@@ -251,21 +250,21 @@
                 reviewElement.innerHTML = `
                     <img src="${review.poster}" alt="${review.title}" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px;">
                     <h3>${review.title} (${review.year})</h3>
-                    <p>Bagalau: ${getStars(review.rating)}</p>
+                    <p>Bağalau: ${getStars(review.rating)}</p>
                     <p>Kün: ${review.date}</p>
-                    <p>Uzyndyq: ${review.length} minut</p>
+                    <p>Uzındığı: ${review.length} минут</p>
                     <div class="movie-info">
-                        <p><strong>Zhanr:</strong> ${review.genre}</p>
-                        <p><strong>Aktorlar:</strong></p>
+                        <p><strong>Janr:</strong> ${review.genre}</p>
+                        <p><strong>Akterlar:</strong></p>
                         <div class="cast">
                             ${Array.isArray(review.cast) ? review.cast.slice(0, 3).map(actor => actor.profile_path ? `<img src="${actor.profile_path}" alt="${actor.name}" title="${actor.name}" style="width: 50px; height: auto; border-radius: 50%;">` : actor.name).join(', ') : 'N/A'}
                         </div>
-                        <p><strong>Rezhisser:</strong> ${review.director || 'N/A'}</p>
-                        <p><strong>Sholu:</strong> ${review.overview}</p>
+                        <p><strong>Rejïsser:</strong> ${review.director || 'N/A'}</p>
+                        <p><strong>Qısqaşa:</strong> ${review.overview}</p>
                     </div>
                     <div class="personal-thoughts">
-                        <strong>Menıñ Jeke Oylarym:</strong>
-                        <p>${review.personalThoughts || 'Jeke oylardı berilmegen.'}</p>
+                        <strong>Meniŋ oylarım:</strong>
+                        <p>${review.personalThoughts || 'Jeke oylar berilmegen.'}</p>
                     </div>
                 `;
                 reviewsContainer.appendChild(reviewElement);
@@ -297,7 +296,7 @@
             const correctPassword = 'WeLoveZere'; 
 
             if (password !== correctPassword) {
-                alert('Parol' dūrys emes. Siz sholu jiberuge bolmaydı.');
+                alert('Parol dūrys emes. Siz sholu jiberuge bolmaydı.');
                 return;
             }
 
